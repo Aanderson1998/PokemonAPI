@@ -129,6 +129,7 @@ and open the template in the editor.
                 var types = document.getElementById('types');
                 var name = document.getElementById('text1').value;
                 name=name.toLowerCase();
+                name=name.split(' ').join('');
                 var inputCheck = document.getElementById('inputCheck');
                 inputCheck.innerHTML = "";
 
