@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Pokemon</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            body{
+                background-color:white;
+            }
+            
+            h3{
+                text-decoration: underline;
+            }
+            
+            .row{
+                width: 100%;
+                box-sizing: border-box;
+                padding: 1ex 1ex;
+            }
+            
+            div{
+                width:50%;
+                height:100%;
+                float:left;
+            }
+
+            .column{
+                float: left;
+                box-sizing: border-box;
+                padding: 1ex 1ex;
+            }
+
+            .column45{
+                background-color:Black;
+                color:white;
+                width: 45%;
+            }
+
+            .column55{
+                width: 55%;
+            }
+
+            .column img{
+                width: 50%;
+                height: 50%;
+                border-radius: 8px;
+            }
+
+            .stopFloat{
+                clear: both;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="row">
+            
+            <div class='column column55'>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRlRZlED0Vz4YP8aNTKfn1onUWG6yOzRhW7LbWrjsCPZk8qrbBL" alt="pokemon1">
+                <p>Use the search engine below to search for cool facts and stats about any pokemon</p>
+                <div>
+                    <h4 id="inputCheck"></h4>
+                    <input id=text1  placeholder="Search..">
+                    <button onClick="findPokemon()">submit</button>
+                </div>
+                <img src="https://secure.img1-ag.wfcdn.com/im/98270403/resize-h800-w800%5Ecompr-r85/8470/84707680/Pokemon+Pikachu+Wall+Decal.jpg" alt="pokemon2">
+            </div>
+            
+            <div class='column column45'>
+                <!--name-->
+                <div>
+                    <h3>NAME</h3>
+                    <h4 id="name">name</h4>
+                </div>
+
+                <!--image-->
+                <div>
+                    <h3>IMAGE</h3>
+                    <img src="" id="image" alt="pokemon picture">
+                </div>
+
+                <!--height-->
+                <div style="float:left">
+                    <h3>HEIGHT</h3>
+                    <h4 id="height">height</h4>
+                </div>
+
+                <!--weight-->
+                <div style="float:left">
+                    <h3>WEIGHT</h3>
+                    <h4 id="weight">weight</h4>
+                </div>
+
+                <!--types-->
+                <div style="float:left">
+                    <h3>TYPES</h3>
+                    <ul id="types">
+
+                    </ul>
+                </div>
+
+                <!--stats-->
+                <div>
+                    <h3>STATS</h3>
+                    <table>
+                        <th>Name</th>
+                        <th>Base</th>
+                        <th>Effort</th>
+                        <tbody id="stats">
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+            
+        </div>
+
+
+        <script>
+            function findPokemon() {
+                var stats = document.getElementById('stats');
+                var types = document.getElementById('types');
+                var name = document.getElementById('text1').value;
+                name=name.toLowerCase();
+                var inputCheck = document.getElementById('inputCheck');
+                inputCheck.innerHTML = "";
+
+                function handleErrors(response) {
+                    if (!response.ok) {
+                        inputCheck.innerHTML = "Error name entered is not a pokemon";
+                        throw Error(response.statusText);
+                    }
+                    return response;
+                }
+
+                fetch('https://pokeapi.co/api/v2/pokemon/' + name)
+                        .then(handleErrors)
+                        .then(response => {
+                            console.log("response");
+                            return response.json();
+                        })
+                        .then(pokeInfo => {
+                            document.getElementById('name').innerHTML = pokeInfo.name;
+                            document.getElementById('height').innerHTML = pokeInfo.height + " decimeters";
+                            document.getElementById('weight').innerHTML = pokeInfo.weight + " hectograms";
+                            var pokeImage = pokeInfo.sprites.front_default;
+                            document.getElementById('image').src = pokeImage;
+
+                            //types list
+                            types.innerHTML = "";
+                            var typesList = pokeInfo.types;
+                            for (var i = 0; i < typesList.length; i++) {
+                                var listEle = document.createElement("li");
+                                listEle.innerHTML = typesList[i].type.name;
+                                types.appendChild(listEle);
+                            }
+
+                            //stats table
+                            stats.innerHTML = "";
+                            var statsList = pokeInfo.stats;
+                            for (var i = 0; i < statsList.length; i++) {
+                                var row = document.createElement("tr");
+                                var ele = document.createElement("td");
+                                ele.innerHTML = statsList[i].stat.name;
+                                ele.style.textAlign = "center";
+                                row.appendChild(ele);
+                                var ele = document.createElement("td");
+                                ele.innerHTML = statsList[i].base_stat;
+                                ele.style.textAlign = "center";
+                                row.appendChild(ele);
+                                var ele = document.createElement("td");
+                                ele.innerHTML = statsList[i].effort;
+                                ele.style.textAlign = "center";
+                                row.appendChild(ele);
+                                stats.appendChild(row);
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+            }
+
+        </script>
+
+    </body>
+
+
+</html>
+
+
+
+
