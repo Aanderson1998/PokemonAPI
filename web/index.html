@@ -14,17 +14,17 @@ and open the template in the editor.
             body{
                 background-color:white;
             }
-            
+
             h3{
                 text-decoration: underline;
             }
-            
+
             .row{
                 width: 100%;
                 box-sizing: border-box;
                 padding: 1ex 1ex;
             }
-            
+
             div{
                 width:50%;
                 height:100%;
@@ -61,7 +61,7 @@ and open the template in the editor.
     <body>
 
         <div class="row">
-            
+
             <div class='column column55'>
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRlRZlED0Vz4YP8aNTKfn1onUWG6yOzRhW7LbWrjsCPZk8qrbBL" alt="pokemon1">
                 <p>Use the search engine below to search for cool facts and stats about any pokemon</p>
@@ -72,7 +72,7 @@ and open the template in the editor.
                 </div>
                 <img src="https://secure.img1-ag.wfcdn.com/im/98270403/resize-h800-w800%5Ecompr-r85/8470/84707680/Pokemon+Pikachu+Wall+Decal.jpg" alt="pokemon2">
             </div>
-            
+
             <div class='column column45'>
                 <!--name-->
                 <div>
@@ -117,9 +117,18 @@ and open the template in the editor.
                         </tbody>
                     </table>
                 </div>
-                
+
+                <!--attacks-->
+                <div>
+                    <h3>ATTACKS</h3>
+                    <table>
+                        <tbody id="attacks">
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
-            
+
         </div>
 
 
@@ -127,9 +136,10 @@ and open the template in the editor.
             function findPokemon() {
                 var stats = document.getElementById('stats');
                 var types = document.getElementById('types');
+                var attacks = document.getElementById('attacks');
                 var name = document.getElementById('text1').value;
-                name=name.toLowerCase();
-                name=name.split(' ').join('');
+                name = name.toLowerCase();
+                name = name.split(' ').join('');
                 var inputCheck = document.getElementById('inputCheck');
                 inputCheck.innerHTML = "";
 
@@ -182,6 +192,39 @@ and open the template in the editor.
                                 row.appendChild(ele);
                                 stats.appendChild(row);
                             }
+
+                            //attacks
+                            attacks.innerHTML = "";
+                            var attacksList = pokeInfo.moves;
+                            for (var i = 0; i < attacksList.length; i++) {
+                                var row = document.createElement("tr");
+                                var ele = document.createElement("td");
+                                ele.innerHTML = attacksList[i].move.name;
+                                row.appendChild(ele);
+                                var ele = document.createElement("td");
+                                var a = document.createElement("a");
+                                a.href = attacksList[i].move.url;
+                                var link = document.createTextNode("more details");
+                                a.appendChild(link);
+                                a.title = "more details";
+                                ele.appendChild(a);
+                                row.appendChild(ele);
+                                attacks.appendChild(row);
+
+
+                                a.onclick = function () {
+                                    var link = this.href;
+                                    console.log(link);
+                                    fetch(link)
+                                            .then(handleErrors)
+                                            .then(attackResponse => {
+                                                console.log("response");
+                                                return attacckResponse.json();
+                                            });
+                                };
+                            }
+
+
                         })
                         .catch(function (error) {
                             console.log(error);
