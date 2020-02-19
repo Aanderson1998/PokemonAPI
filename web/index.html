@@ -29,6 +29,7 @@ and open the template in the editor.
                 width:50%;
                 height:100%;
                 float:left;
+                padding-bottom: 10px;
             }
 
             .column{
@@ -76,6 +77,11 @@ and open the template in the editor.
             tbody{
                 padding: 8px;
             }
+            
+            #readMore{
+                padding-top: 80px;
+            }
+           
             
 
         </style>
@@ -141,7 +147,7 @@ and open the template in the editor.
                 </div>
 
                 <!--attacks-->
-                <div>
+                <div style="float:left">
                     <h3>ATTACKS</h3>
                     <table>
                         <th>Move</th>
@@ -149,6 +155,8 @@ and open the template in the editor.
                         </tbody>
                     </table>
                 </div>
+                
+                <div id="readMore" style="float: left"></div>
 
             </div>
 
@@ -161,6 +169,8 @@ and open the template in the editor.
                 var types = document.getElementById('types');
                 var attacks = document.getElementById('attacks');
                 var name = document.getElementById('text1').value;
+                var attackDescription=document.getElementById("readMore");
+                attackDescription.innerHTML="";
                 name = name.toLowerCase();
                 name = name.split(' ').join('');
                 var inputCheck = document.getElementById('inputCheck');
@@ -243,7 +253,31 @@ and open the template in the editor.
                                                 return attackResponse.json();
                                         })
                                         .then(description => {
-                                        this.innerHTML = description.effect_entries[0].effect;
+                                         attackDescription.innerHTML="ATTACK DESCRIPTION";
+                                 
+                                         var attackName=document.createElement("div");
+                                         attackName.innerHTML= "NAME: " + description.name;
+                                        attackDescription.appendChild(attackName);
+                                        
+                                        var attackFlavor=document.createElement("div");
+                                         attackFlavor.innerHTML= "FLAVOR TEXT: " + description.flavor_text_entries[0].flavor_text;
+                                        attackDescription.appendChild(attackFlavor);
+                                        
+                                        var attackAccuracy=document.createElement("div");
+                                         attackAccuracy.innerHTML= "ACCURACY: " + description.accuracy;
+                                        attackDescription.appendChild(attackAccuracy);
+                                        
+                                        var attackPP=document.createElement("div");
+                                         attackPP.innerHTML= "PP: " + description.pp;
+                                        attackDescription.appendChild(attackPP);
+                                        
+                                        var attackPower=document.createElement("div");
+                                         attackPower.innerHTML= "POWER: " + description.power;
+                                        attackDescription.appendChild(attackPower);
+                                        
+                                        var attackType=document.createElement("div");
+                                         attackType.innerHTML= "TYPE: " + description.type.name;
+                                        attackDescription.appendChild(attackType);
                                         });
                                 };
                             }
