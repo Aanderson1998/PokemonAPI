@@ -17,6 +17,7 @@ and open the template in the editor.
 
             h3{
                 text-decoration: underline;
+                color:red;
             }
 
             .row{
@@ -79,7 +80,7 @@ and open the template in the editor.
             }
             
             #readMore{
-                padding-top: 80px;
+                padding-top: 60px;
             }
            
             
@@ -255,27 +256,27 @@ and open the template in the editor.
                                         .then(description => {
                                          attackDescription.innerHTML="ATTACK DESCRIPTION";
                                  
-                                         var attackName=document.createElement("div");
+                                         var attackName=document.createElement("p");
                                          attackName.innerHTML= "NAME: " + description.name;
                                         attackDescription.appendChild(attackName);
                                         
-                                        var attackFlavor=document.createElement("div");
+                                        var attackFlavor=document.createElement("p");
                                          attackFlavor.innerHTML= "FLAVOR TEXT: " + description.flavor_text_entries[0].flavor_text;
                                         attackDescription.appendChild(attackFlavor);
                                         
-                                        var attackAccuracy=document.createElement("div");
+                                        var attackAccuracy=document.createElement("p");
                                          attackAccuracy.innerHTML= "ACCURACY: " + description.accuracy;
                                         attackDescription.appendChild(attackAccuracy);
                                         
-                                        var attackPP=document.createElement("div");
+                                        var attackPP=document.createElement("p");
                                          attackPP.innerHTML= "PP: " + description.pp;
                                         attackDescription.appendChild(attackPP);
                                         
-                                        var attackPower=document.createElement("div");
+                                        var attackPower=document.createElement("p");
                                          attackPower.innerHTML= "POWER: " + description.power;
                                         attackDescription.appendChild(attackPower);
                                         
-                                        var attackType=document.createElement("div");
+                                        var attackType=document.createElement("p");
                                          attackType.innerHTML= "TYPE: " + description.type.name;
                                         attackDescription.appendChild(attackType);
                                         });
