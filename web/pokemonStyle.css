@@ -1,0 +1,74 @@
+            body{
+                background-color:white;
+            }
+
+            h3{
+                text-decoration: underline;
+                color:red;
+            }
+
+            .row{
+                width: 100%;
+                box-sizing: border-box;
+                padding: 1ex 1ex;
+            }
+
+            .attribute{
+                width:50%;
+                height:100%;
+                float:left;
+                padding-bottom: 10px;
+            }
+
+            .column{
+                float: left;
+                box-sizing: border-box;
+                padding: 1ex 1ex;
+            }
+
+            .column45{
+                background-color:Black;
+                color:white;
+                width: 45%;
+            }
+
+            .column55{
+                width: 55%;
+            }
+
+            .column img{
+                width: 50%;
+                height: 50%;
+                border-radius: 8px;
+            }
+
+            .stopFloat{
+                clear: both;
+            }
+
+            table{
+                border:thick solid white;
+            }
+
+            th{
+                font-size: 22px;
+                text-align: center;
+                padding:5px;
+            }
+
+            td{
+                font-size: 15px;
+                text-align: center;
+                padding: 5px;
+            }
+
+            tbody{
+                padding: 8px;
+            }
+
+            #readMore{
+                padding-top: 60px;
+            }
+
+
+
