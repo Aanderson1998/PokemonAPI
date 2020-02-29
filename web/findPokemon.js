@@ -3,16 +3,17 @@
 /* global fetch */
 
 function findPokemon() {
-       var obj={};
-   obj.stats = document.getElementById('stats');
+    "use strict";
+    var obj = {};
+    obj.stats = document.getElementById('stats');
     obj.types = document.getElementById('types');
     obj.attacks = document.getElementById('attacks');
-   obj.name = document.getElementById('name');
+    obj.name = document.getElementById('name');
     obj.height = document.getElementById('height');
-  obj.weight = document.getElementById('weight');
+    obj.weight = document.getElementById('weight');
     obj.attackDescription = document.getElementById("readMore");
     obj.image = document.getElementById('image');
-   obj.text = document.getElementById('text1').value;
+    obj.text = document.getElementById('text1').value;
 
     obj.name.innerHTML = "";
     obj.height.innerHTML = "";
@@ -87,17 +88,14 @@ function findPokemon() {
                     var ele = document.createElement("td");
                     ele.innerHTML = attacksList[i].move.name;
                     row.appendChild(ele);
-                    var link = document.createElement("td");
-                    link.innerHTML = "show details";
-                    link.text = attacksList[i].move.url;
-
-
-                    row.appendChild(link);
-                    obj.attacks.appendChild(row);
-
-
+                    var link = document.createElement('a');
+                    var linkText = document.createTextNode("show details");
+                    link.appendChild(linkText);
+                    link.title = attacksList[i].move.url;
+                    link.style.textDecoration="underline";
+                    link.style.cursor="pointer";
                     link.onclick = function () {
-                        var link = this.text;
+                        var link = this.title;
                         console.log(link);
                         fetch(link)
                                 .then(handleErrors)
@@ -133,10 +131,12 @@ function findPokemon() {
                                     obj.attackDescription.appendChild(attackType);
                                 });
                     };
+                    row.appendChild(link);
+                    obj.attacks.appendChild(row);
                 }
             });
-            
-            return obj;
+
+    return obj;
 }
 ;
 
